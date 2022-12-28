@@ -20,7 +20,7 @@ const PRIVATE_KEY =
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
 
 module.exports = {
-    defaultNetwork: "hardhat",
+    defaultNetwork: "hardhat", // 默认部署的网络，可以通过 --network 参数指定，不要搞错了
     networks: {
         hardhat: {
             chainId: 31337,
@@ -45,7 +45,20 @@ module.exports = {
     },
     etherscan: {
         apiKey: ETHERSCAN_API_KEY,
-        // customChains: [], // uncomment this line if you are getting a TypeError: customChains is not iterable
+        customChains: [
+            {
+                network: "goerli",
+                chainId: 5,
+                urls: {
+                    apiURL: "http://api-goerli.etherscan.io/api",
+                    browserURL: "https://goerli.etherscan.io"
+                }
+            }
+        ],
+        // 非常重要的网络配置问题。apiURL 不能用默认的 https，手动添加自定义网络
+        // https://github.com/smartcontractkit/full-blockchain-solidity-course-js/discussions/2247#discussioncomment-3590929
+        // https://hardhat.org/hardhat-runner/plugins/nomiclabs-hardhat-etherscan#adding-support-for-other-networks
+        // uncomment this line if you are getting a TypeError: customChains is not iterable
 
     },
     gasReporter: {
