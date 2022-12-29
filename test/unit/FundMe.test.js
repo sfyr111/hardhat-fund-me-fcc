@@ -10,7 +10,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
           let deployer
           const sendValue = ethers.utils.parseEther("1")
           beforeEach(async () => {
-              // const accounts = await ethers.getSigners()
+              // const accounts = await ethers.getSigners() // 返回 hardhat 配置的 accounts, 测试的话是10个虚拟的
               // deployer = accounts[0]
               deployer = (await getNamedAccounts()).deployer
               await deployments.fixture(["all"])
@@ -145,3 +145,5 @@ const { developmentChains } = require("../../helper-hardhat-config")
               })
           })
       })
+
+// npx hardhat test --grep "FundMe" 可以执行某个包含 "FundMe" 的测试
